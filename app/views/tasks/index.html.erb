@@ -1,8 +1,17 @@
 <h1>My tasks</h1>
-<ul>
+<ul class="list-group">
   <% @tasks.each do |task| %>
-    <li><%= task.completed %><%= link_to"#{task.title}", task_path(task[:id]) %><%= link_to "Delete Task", task_path(task), method: :delete, data: { confirm: "Are you sure?" } %></li>
+    <li class="list-group-item">
+      <% if task.completed %>
+        <i class="fa fa-check-square-o"></i>
+      <% else %>
+        <i class="fa fa-square-o"></i>
+      <% end %>
+      <%= link_to task.title, task_path(task.id) %>
+      <%= link_to "🗑", task_path(task.id), method: :delete, data: { confirm: "Are you sure?" } %></li>
     <% end %>
 </ul>
 
-<%= link_to("Create a new task", "/tasks/new") %>
+<%= link_to new_task_path do %>
+  <button type="button" class="btn btn-primary">Add new task</button>
+<% end %>
